@@ -5,9 +5,11 @@ import com.edu.eci.arep.ArepTaller5CRUDSystem.Model.DTO.PropertiesDto;
 import com.edu.eci.arep.ArepTaller5CRUDSystem.Model.Properties;
 import com.edu.eci.arep.ArepTaller5CRUDSystem.Repository.PropertiesRepository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PropertiesService {
-        
+
+    @Autowired
     private PropertiesRepository propertyRepository;
 
     public Properties createProperties(PropertiesDto propertyDto) {
@@ -30,7 +33,7 @@ public class PropertiesService {
         return propertyRepository.save(properties);
     }
 
-    public Iterable<Properties> getProperties() {
+    public List<Properties> getProperties() {
         return propertyRepository.findAll();
     }
 
@@ -43,10 +46,10 @@ public class PropertiesService {
         if (!Objects.equals(propertyDto.getAddress(), "")){
             oldProp.setAddress(propertyDto.getAddress());
         }
-        if (propertyDto.getPrice() < 0){
+        if (!(propertyDto.getPrice() < 0)){
             oldProp.setPrice(propertyDto.getPrice());
         }
-        if (propertyDto.getSize() < 0){
+        if (!(propertyDto.getSize() < 0)){
             oldProp.setSize(propertyDto.getSize());
         }
         if (!Objects.equals(propertyDto.getDescription(), "")){

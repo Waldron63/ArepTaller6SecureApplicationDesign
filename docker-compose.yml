@@ -4,13 +4,14 @@ services:
 
   app:
     build: .
-    container_name: taller_crud_system
+    container_name: ArepTaller5CRUDSystem
     restart: always
     depends_on:
       - mysql
     environment:
-      #SPRING_DATASOURCE_URL: jdbc:mysql://98.82.9.114:3306/properties?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: mainuser
+      # la IP de la bd de AWS
+      SPRING_DATASOURCE_URL: jdbc:mysql://13.218.247.45:3306/properties?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: secret
     ports:
       - "8080:8080"

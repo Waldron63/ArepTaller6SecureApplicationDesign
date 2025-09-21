@@ -5,7 +5,7 @@
 package com.edu.eci.arep.ArepTaller5CRUDSystem.Repository;
 
 import com.edu.eci.arep.ArepTaller5CRUDSystem.Model.Properties;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author Santiago
  */
 @Repository
-public interface PropertiesRepository extends CrudRepository<Properties, Long> {
+public interface PropertiesRepository extends JpaRepository<Properties,Long> {
 
 }

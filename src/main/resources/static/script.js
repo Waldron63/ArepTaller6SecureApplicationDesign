@@ -4,11 +4,16 @@ document.getElementById('form').addEventListener('submit', e => {
 });
 
 function createProperties() {
+    const address = document.getElementById('address').value.trim();
+    const priceValue = document.getElementById('price').value;
+    const sizeValue = document.getElementById('size').value;
+    const description = document.getElementById('description').value.trim();
+
     const p = {
-        address: document.getElementById('address').value,
-        price: parseFloat(document.getElementById('price').value),
-        size: parseFloat(document.getElementById('size').value),
-        description: document.getElementById('description').value
+        address: address || "N/A",
+        price: priceValue ? parseFloat(priceValue) : 1.0,
+        size: sizeValue ? parseFloat(sizeValue) : 1.0,
+        description: description || "Sin descripción"
     };
 
     fetch('/api/properties/', {
@@ -26,11 +31,14 @@ function createProperties() {
 }
 
 function loadProperties() {
-    fetch('/api/properties/')
+    fetch('/api/properties/', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+    })
         .then(response => response.json())
         .then(properties => {
             const propertyTableBody = document.querySelector('#tbl tbody');
-            propertyTableBody.innerHTML = ''; // limpiar tabla
+            propertyTableBody.innerHTML = '';
 
             properties.forEach(property => {
                 const row = document.createElement('tr');

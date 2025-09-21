@@ -4,6 +4,8 @@ package com.edu.eci.arep.ArepTaller5CRUDSystem.Controller;
 import com.edu.eci.arep.ArepTaller5CRUDSystem.Model.DTO.PropertiesDto;
 import com.edu.eci.arep.ArepTaller5CRUDSystem.Model.Properties;
 import com.edu.eci.arep.ArepTaller5CRUDSystem.Service.PropertiesService;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @author Santiago
  */
 @RestController
-@RequestMapping("/property")
+@RequestMapping("/api/properties")
 public class PropertiesController {
     
     @Autowired
@@ -24,7 +26,7 @@ public class PropertiesController {
     }
     
     @GetMapping("/")
-    public Iterable<Properties> findProperties(){
+    public List<Properties> findProperties(){
         return propertiesService.getProperties();
     }
     
