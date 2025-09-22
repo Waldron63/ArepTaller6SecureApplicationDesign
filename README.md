@@ -203,6 +203,11 @@ Luego se debe salir de la maquina virtual y voler a ingresar, para que carguen t
   
   <img width="1198" height="139" alt="image" src="https://github.com/user-attachments/assets/91d29cc2-cfe7-4f2b-b2d7-67d5b4b91dc2" />
 
+## video de desarrollo
+Video de muestra del funcionamiento completo de AWS, despliegue y peticiones:
+
+[Deployment Video](./taller05arep.mp4)
+
 ## Reporte de pruebas
 
 ### fecha
