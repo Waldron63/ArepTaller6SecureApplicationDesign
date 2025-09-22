@@ -6,7 +6,9 @@ Para ver los 2 talleres anteriores hechos en clase, "AWS-CLI Primer Workshop" y 
 https://github.com/Waldron63/accessing-data-jpa.git
 
 ## Introducción
+En este taller se desarrolló un sistema CRUD para la gestión de propiedades, implementando una aplicación web con un Frontend en HTML, JS y CSS. Se utilizó Fetch API para la comunicación con un Backend en Spring Boot, donde se genera una API Rest con endpoints para gestionar la información almacenada en una base de datos MySQL. Cada propiedad cuenta con un ID generado automáticamente, dirección, precio, tamaño y descripción.
 
+El despliegue de el backend y la BD estan en instancias independientes en AWS EC2, asegurando la correcta integración y funcionamiento del sistema.
 
 ### Prerrequisitos
 
@@ -99,6 +101,8 @@ Para el correcto uso del servidor, es necesario tener las siguientes aplicacione
 <img width="612" height="511" alt="image" src="https://github.com/user-attachments/assets/c33f069b-fbd1-4479-a734-df31f0077b0f" />
 
 La estructura del directorio del proyecto es:
+
+<img width="1011" height="555" alt="image" src="https://github.com/user-attachments/assets/4b7171ea-2680-4aa3-87cc-f471f8640718" />
 
 <img width="891" height="949" alt="image" src="https://github.com/user-attachments/assets/b22a135c-1a61-49eb-a7cc-863df9cfbca9" />
 
@@ -207,16 +211,32 @@ Fecha:21/09/2025
 
 ### Pruebas unitarias:
 
-<img width="1284" height="305" alt="image" src="https://github.com/user-attachments/assets/db1c30a1-5d42-46fc-986d-817621fb75ec" />
+<img width="1453" height="444" alt="image" src="https://github.com/user-attachments/assets/5b832b75-08d6-4279-a4b9-7306d30b7ae9" />
 
-donde cada prueba unitaria (del archivo mainTest, las pruebas de HttpServerTest no cambiaron de la anterior versión) sirve para:
-- shouldLoadStaticFileHtml(): comprobar que funciona el estándar o index principal de la aplicación web.
-- shouldLoadStaticFileForm(): comprueba que el servidor acepta formato html.
-- shouldLoadStaticFileCss(): comprueba que el servidor acepta formato css.
-- shouldLoadStaticFileJs(): comprueba que el servidor acepta formato js.
-- shouldLoadStaticImagePNG(): comprueba que el servidor acepta formato png y jpg.
-- shouldLoadGreetingControllerWithQuery(): Comprueba que genera la petición Http con servicio RestController de forma adecuada, obteniendo el nombre de la persona y devolviendo la respuesta.
-- shouldLoadGreetingControllerWithoutQuery(): Comprueba que genera la petición Http con servicio RestController de forma adecuada, sin el nombre de la persona y devolviendo la respuesta estandar.
+donde cada prueba unitaria sirve para:
+1. PropertiesTests: pruebas para Properties y PropertiesDto.
+     - testPropertiesDtoConstructorAndGettersSetters()
+     - testPropertiesDtoAllArgsConstructor()
+     - testPropertiesBuilder()
+     - testPropertiesEntityConstructorAndGettersSetters()
+     - testPropertiesEntityAllArgsConstructor()
+     - testPropertiesEntityBuilder()
+     - testPropertiesToString()
+     - testEqualsAndHashCodeEntity()
+     - testEqualsAndHashCode()
+2. PropertiesServiceTest: pruebas para PropertiesService.
+     - testCreateProperties()
+     - testGetProperties()
+     - testGetPropertiesById()
+     - testUpdateProperties()
+     - testUpdatePropertiesIgnoresInvalidValues()
+     - testDeleteProperties()
+3. PropertiesControllerTest: pruebas para PropertiesController.
+     - testCreateProperties()
+     - testFindProperties()
+     - testFindPropertiesById()
+     - testUpdateProperties()
+     - testDeleteProperties()
 
 ### Pruebas de aceptación
 
