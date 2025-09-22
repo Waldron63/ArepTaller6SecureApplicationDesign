@@ -31,7 +31,7 @@ public class PropertiesController {
     }
     
     @GetMapping("/{id}")
-    public Optional<Properties> findProperties(@PathVariable long id){
+    public Optional<Properties> findPropertiesById(@PathVariable long id){
         return propertiesService.getPropertiesById(id);
     }
     
