@@ -4,13 +4,13 @@ services:
 
   app:
     build: .
-    container_name: ArepTaller5CRUDSystem
+    container_name: ArepTaller6SecureApplicationDesign
     restart: always
     depends_on:
       - mysql
     environment:
       # la IP de la bd de AWS
-      SPRING_DATASOURCE_URL: jdbc:mysql://13.218.247.45:3306/properties?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/properties?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: secret
     ports:

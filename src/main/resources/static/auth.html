@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Property Management</title>
+    <link rel="stylesheet" href="auth.css" />
+</head>
+<body>
+<div class="container mx-auto p-6">
+    <header class="text-center mb-6">
+        <h1 class="text-3xl font-bold text-primary">Property Management</h1>
+        <p class="text-gray">Bienvenido, inicia sesión o regístrate</p>
+    </header>
+
+    <!-- Mensajes -->
+    <div id="msg" class="mb-4"></div>
+
+    <!-- Formulario de Login/Registro -->
+    <div class="bg-card p-6 rounded-xl shadow mb-6">
+        <form id="form">
+            <div class="form-group">
+                <label for="username">Nombre de usuario</label>
+                <input id="username" type="text" placeholder="Ingrese su nombre" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input id="password" type="password" placeholder="Ingrese su contraseña" required />
+            </div>
+
+            <div id="confirm-password-group" class="form-group hidden">
+                <label for="confirmPassword">Confirmar contraseña</label>
+                <input id="confirmPassword" type="password" placeholder="Repita su contraseña" />
+            </div>
+
+            <div class="flex justify-end mt-4">
+                <button type="submit" class="btn-primary" id="submit-btn">Iniciar sesión</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-4">
+            <p id="toggle-text">¿No tienes una cuenta?
+                <button id="toggle-btn" class="link-btn">Regístrate aquí</button>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script src="auth.js"></script>
+</body>
+</html>
