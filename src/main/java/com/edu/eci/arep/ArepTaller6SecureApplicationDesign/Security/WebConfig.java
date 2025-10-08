@@ -27,12 +27,13 @@ public class WebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
+        //config.setAllowedOrigins(List.of("*"));
         config.setAllowedOrigins(Arrays.asList(
-                "https://sgrlab07.duckdns.org",
                 "https://sgrlab07back.duckdns.org",
+                "https://sgrlab07.duckdns.org",
                 "http://localhost:8080"
         ));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 

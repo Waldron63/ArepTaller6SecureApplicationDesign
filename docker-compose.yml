@@ -10,7 +10,7 @@ services:
       - mysql
     environment:
       # la IP de la bd de AWS
-      SPRING_DATASOURCE_URL: jdbc:mysql://72.44.61.48:3306/properties?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://3.92.20.127:3306/properties?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: secret
     ports:

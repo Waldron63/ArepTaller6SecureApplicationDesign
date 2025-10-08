@@ -65,7 +65,7 @@ function initAuth() {
 
 async function handleRegister(username, password, msg) {
   try {
-    const response = await fetch(getBaseUrl() + "https://sgrlab07back.duckdns.org:8080/api/auth/register", {
+    const response = await fetch("https://sgrlab07back.duckdns.org:8443/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: username, password }),
@@ -91,7 +91,7 @@ async function handleRegister(username, password, msg) {
 
 async function handleLogin(username, password, msg) {
   try {
-    const response = await fetch(getBaseUrl() + "https://sgrlab07back.duckdns.org:8080/api/auth/login", {
+    const response = await fetch("https://sgrlab07back.duckdns.org:8443/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: username, password }),

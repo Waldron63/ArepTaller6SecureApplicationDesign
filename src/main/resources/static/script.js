@@ -1,3 +1,4 @@
+
 document.getElementById('form').addEventListener('submit', e => {
     e.preventDefault();
     createProperties();
@@ -16,7 +17,7 @@ function createProperties() {
         description: description || "Sin descripción"
     };
 
-    fetch('https://sgrlab07back.duckdns.org:8080/api/properties/', {
+    fetch('https://sgrlab07back.duckdns.org:8443/api/properties/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(p)
@@ -31,7 +32,7 @@ function createProperties() {
 }
 
 function loadProperties() {
-    fetch('https://sgrlab07back.duckdns.org:8080/api/properties/', {
+    fetch('https://sgrlab07back.duckdns.org:8443/api/properties/', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
     })
@@ -62,7 +63,7 @@ function loadProperties() {
 }
 
 function removeProperties(id) {
-    fetch('https://sgrlab07back.duckdns.org/api/properties/${id}', { method: 'DELETE' })
+    fetch('https://sgrlab07back.duckdns.org:8443/api/properties/${id}', { method: 'DELETE' })
         .then(() => {
             msg('Deleted!', 'success');
             loadProperties();
@@ -71,7 +72,7 @@ function removeProperties(id) {
 }
 
 function editProperties(id) {
-    fetch('https://sgrlab07back.duckdns.org:8080/api/properties/${id}')
+    fetch('https://sgrlab07back.duckdns.org:8443/api/properties/${id}')
         .then(r => r.json())
         .then(p => {
             document.getElementById('address').value = p.address;
@@ -95,7 +96,7 @@ function updateProperties(id) {
         description: document.getElementById('description').value
     };
 
-    fetch('https://sgrlab07back.duckdns.org/api/properties/${id}', {
+    fetch('https://sgrlab07back.duckdns.org:8443/api/properties/${id}', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(p)
