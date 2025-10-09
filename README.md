@@ -144,18 +144,21 @@ Una vez agregados, se genera una imagen para "Docker Desktop" con el siguiente c
 (NOTA: en docker hub, crear un repositorio nuevo con el mismo nombre que el build)
 
  ```bash
-  docker build --tag santiagogualdron/propertieslab05 .
-  docker run -d -p 34000:6000 --name propertieslab05 santiagogualdron/propertieslab05
+  docker build --tag santiagogualdron/ArepTaller6SecureApplicationDesign .
+  docker run -d -p 34000:6000 --name ArepTaller6SecureApplicationDesign santiagogualdron/ArepTaller6SecureApplicationDesign
   docker login
-  docker push santiagogualdron/propertieslab05
+  docker push santiagogualdron/ArepTaller6SecureApplicationDesign
  ```
 
-  <img width="1199" height="111" alt="image" src="https://github.com/user-attachments/assets/e291657c-c191-4c69-ada7-f6916c8e7295" />
+  <img width="946" height="104" alt="image" src="https://github.com/user-attachments/assets/3f79ac09-ca3b-4193-bb9c-59c059d1ebf4" />
 
-  <img width="1264" height="724" alt="image" src="https://github.com/user-attachments/assets/b5708f52-d191-4cf9-b7d3-fb263e474cda" />
+<img width="1212" height="683" alt="image" src="https://github.com/user-attachments/assets/c295ddd4-69d7-4719-abd7-b4a5c682c593" />
 
 ### Instancias en AWS
-para ambas instancias, al generarlas con EC2, una vez que se conecten a cada instancia, se sugiere agregar los siguientes comandos para instalar en ambas Docker.
+para las 3 instancias, en las instancias de front y back, se agregaron las actualizaciones LAMP, con certificados gratuitos de Let's encrypt y Dns Duck.
+Para mas informacion seguir [este link](https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html)
+
+Al generarlas con EC2, una vez que se conecten a cada instancia, se sugiere agregar los siguientes comandos para instalar en ambas Docker.
 
  ```bash
   sudo yum update -y
@@ -167,7 +170,9 @@ para ambas instancias, al generarlas con EC2, una vez que se conecten a cada ins
  ```
 Luego se debe salir de la maquina virtual y voler a ingresar, para que carguen todos los archivos y el login
 
-<img width="1569" height="81" alt="image" src="https://github.com/user-attachments/assets/6ef57cfc-0312-4e76-8aba-31ad8d1a4b0c" />
+<img width="1634" height="99" alt="image" src="https://github.com/user-attachments/assets/08b45469-d87a-4aa1-bf3e-f81d282ed077" />
+
+<img width="1083" height="638" alt="image" src="https://github.com/user-attachments/assets/03237325-6771-48d7-ac59-3c31a507e68a" />
 
 1. Instancia para MySQL
   Primero, configurar la seguridad de la instancia para que acepte el paso por el puerto 3306.
@@ -192,9 +197,9 @@ Luego se debe salir de la maquina virtual y voler a ingresar, para que carguen t
   <img width="725" height="82" alt="image" src="https://github.com/user-attachments/assets/fe908fbe-8eef-4a1c-9baf-c5caedd804b6" />
 
 2. Instancia para el Backend
-  Primero, configurar la seguridad de la instancia para que acepte el paso por el puerto 8080
+  Primero, configurar la seguridad de la instancia para que acepte el paso por el puerto 8443
 
-  <img width="1919" height="800" alt="image" src="https://github.com/user-attachments/assets/90ab4653-a46d-4b6b-b8c0-f5db0f838e30" />
+  <img width="1373" height="480" alt="image" src="https://github.com/user-attachments/assets/55f3be37-c2c6-48da-b931-dddda236ac54" />
 
   Ahora, dentro de la maquina virtual de la instancia (utilizando la llave .pem) se crea el contenedor para el backend
 
@@ -208,19 +213,83 @@ Luego se debe salir de la maquina virtual y voler a ingresar, para que carguen t
   (Se ha dejado documentado la parte de localhost en los codigos para mayor informacion)
 
    ```bash
-    docker pull santiagogualdron/propertieslab05
-    docker run -d -p 8080:8080 --name propertieslab05 santiagogualdron/propertieslab05:latest
+    docker pull santiagogualdron/ArepTaller6SecureApplicationDesign
+    docker run -d -p 8443:8443 --name ArepTaller6SecureApplicationDesign santiagogualdron/ArepTaller6SecureApplicationDesign:latest
     docker ps
    ```
+
+  Con el DuckDns "sgrlab07back.duckdns.org" se verifica que la configuracion de HTTPD funcione, con el certificado activo:
+
+  <img width="817" height="97" alt="image" src="https://github.com/user-attachments/assets/a3c35385-0f0e-44f0-b21c-96b0acf9bee0" />
+
+  <img width="1330" height="615" alt="image" src="https://github.com/user-attachments/assets/7a2de42f-bfb7-4e39-b2a7-26c89c8c3514" />
+
+
+
+3. Instancia para el Frontend
+  Primero, configurar la seguridad de la instancia para que acepte el paso por el puerto 8443
+
+  <img width="1373" height="480" alt="image" src="https://github.com/user-attachments/assets/55f3be37-c2c6-48da-b931-dddda236ac54" />
+
+  Ahora, dentro de la maquina virtual de la instancia (utilizando la llave .pem) se crea el contenedor para el backend
+
+   ```bash
+    ssh -i "llave.pem" ec2-user@ipdelainstancia.compute-1.amazonaws.com
+   ```
+
+  Para este punto, se debe cambiar los comandos de Dockerfile, docker-compose.yml y application.properties;
+  colocandoles la IP de la instancia de la base de datos,
+  si se deja como localhost, no podra utilizar la instancia de mysql previamente creada 
+  (Se ha dejado documentado la parte de localhost en los codigos para mayor informacion)
+
+   ```bash
+    docker pull santiagogualdron/ArepTaller6SecureApplicationDesign
+    docker run -d -p 6000:6000 --name ArepTaller6SecureApplicationDesign santiagogualdron/ArepTaller6SecureApplicationDesign:latest
+    docker ps
+   ```
+(NOTA: se genero un contenedor docker para sacar los archivos statics del repositorio y agregarlos al path /var/www/html/)
+ 
+   ```bash
+    docker stop ArepTaller6SecureApplicationDesign
+    docker rm ArepTaller6SecureApplicationDesign
+    docker ps
+   ```
+
+Con el DuckDns "sgrlab07.duckdns.org" se verifica que la configuracion de HTTPD funcione, con el certificado activo:
+
+<img width="972" height="628" alt="image" src="https://github.com/user-attachments/assets/d5ccb2a9-1424-42d8-a199-92a9fdd89fa1" />
+
+<img width="933" height="620" alt="image" src="https://github.com/user-attachments/assets/858f52a0-706a-41ac-85c5-7f15ca296015" />
+
 ### Prueba de conexion entre las instancias
 
-  <img width="1918" height="1013" alt="image" src="https://github.com/user-attachments/assets/121bbf6c-be84-4c31-8670-985d12a763ac" />
+#### Pings
 
+<img width="961" height="570" alt="image" src="https://github.com/user-attachments/assets/2f4fa2dc-1cd7-49b6-80ba-faf1121e63d2" />
 
-  <img width="1571" height="833" alt="image" src="https://github.com/user-attachments/assets/588c2e93-4159-4e1c-ad64-42329b83c7d7" />
+<img width="1050" height="573" alt="image" src="https://github.com/user-attachments/assets/58085bbb-5e94-41bf-9f47-49100ebfb0f0" />
 
-  
-  <img width="1198" height="139" alt="image" src="https://github.com/user-attachments/assets/91d29cc2-cfe7-4f2b-b2d7-67d5b4b91dc2" />
+#### Certificados
+
+<img width="1443" height="149" alt="image" src="https://github.com/user-attachments/assets/e2fafe14-bd16-4c28-ae77-6e8128427b73" />
+
+<img width="1465" height="566" alt="image" src="https://github.com/user-attachments/assets/d5908dcf-f308-4e22-b3db-bb586eb63ba2" />
+
+#### Pruebas de llamado entre instancias
+
+<img width="917" height="544" alt="image" src="https://github.com/user-attachments/assets/f69a4564-bfcd-47c2-b5ea-05da1605d7fd" />
+
+<img width="925" height="600" alt="image" src="https://github.com/user-attachments/assets/e989fbc0-3c97-418e-940b-b9d5f7b4d185" />
+
+<img width="918" height="542" alt="image" src="https://github.com/user-attachments/assets/e1260a15-af8e-43bb-90e2-a3b48e44feca" />
+
+<img width="919" height="590" alt="image" src="https://github.com/user-attachments/assets/9f922535-6af6-4ccc-887c-55066260edc7" />
+
+#### Datos encriptados en la DataBase
+
+<img width="748" height="517" alt="image" src="https://github.com/user-attachments/assets/24d9fc63-3537-4079-be04-e9905b06135c" />
+
+<img width="757" height="563" alt="image" src="https://github.com/user-attachments/assets/73ad55c1-c5db-4a8c-ade0-9e2520528831" />
 
 ## video de desarrollo
 Video de muestra del funcionamiento completo de AWS, despliegue y peticiones:
@@ -320,4 +389,5 @@ donde cada prueba unitaria sirve para:
 ## Autor
 
 Santiago Gualdron Rincon - [Waldron63](https://github.com/Waldron63)
+
 
