@@ -1,14 +1,11 @@
-# Taller de trabajo individual en patrones arquitecturales
-
-## Talleres previos
-Para ver los 2 talleres anteriores hechos en clase, "AWS-CLI Primer Workshop" y "Taller: JPA", se encuentran en el siguiente link:
-
-https://github.com/Waldron63/accessing-data-jpa.git
+# Taller del Diseño de Aplicaciones Seguras
 
 ## Introducción
-En este taller se desarrolló un sistema CRUD para la gestión de propiedades, implementando una aplicación web con un Frontend en HTML, JS y CSS. Se utilizó Fetch API para la comunicación con un Backend en Spring Boot, donde se genera una API Rest con endpoints para gestionar la información almacenada en una base de datos MySQL. Cada propiedad cuenta con un ID generado automáticamente, dirección, precio, tamaño y descripción.
+En este taller se desea mostrar el uso de la seguridad para aplicaciones, utilizando certificados gratuitos por "Let's Encode", DNS gratuitos con "DuckDns"; entre otras cosas.
 
-El despliegue de el backend y la BD estan en instancias independientes en AWS EC2, asegurando la correcta integración y funcionamiento del sistema.
+En este laboratorio de desea mostrar como se divide la arquitectura de la aplicación en 3 instancias diferentes (Todas en EC2 de AWS);
+donde el front y back se desarrollaron con una AMI LA2023, a las cuales se les configuró LAMP, y la DataBase desarrollada en MySQL. 
+
 
 ### Prerrequisitos
 
@@ -35,8 +32,8 @@ Para el correcto uso del servidor, es necesario tener las siguientes aplicacione
 1. clonar el repositorio con el siguiente comando y ingresar a la carpeta en donde esta incluido el *pom.xml*:
 
    ```sh
-   git clone https://github.com/Waldron63/ArepTaller5CRUDSystem.git
-   cd ArepTaller5CRUDSystem.git
+   git clone https://github.com/Waldron63/ArepTaller6SecureApplicationDesign.git
+   cd ArepTaller6SecureApplicationDesign
    ```
 
 2. Construir el proyecto:
@@ -45,9 +42,10 @@ Para el correcto uso del servidor, es necesario tener las siguientes aplicacione
    mvn clean install
    mvn clean package
    ```
+   
   La consola mostrará información parecida a:
-  
-  <img width="1451" height="277" alt="image" src="https://github.com/user-attachments/assets/48125c05-4b00-4219-bbcd-24a858ae70e9" />
+
+<img width="1159" height="331" alt="image" src="https://github.com/user-attachments/assets/3e896250-da1b-435d-bbb5-389e502fc038" />
 
 3. Correr la aplicación:
 
@@ -59,21 +57,21 @@ Para el correcto uso del servidor, es necesario tener las siguientes aplicacione
 
    La consola debería mostrar el siguiente mensaje:
 
-    <img width="1455" height="136" alt="image" src="https://github.com/user-attachments/assets/f6ae7916-8e34-4788-a1ef-61205cf566bd" />
+     <img width="1163" height="115" alt="image" src="https://github.com/user-attachments/assets/b4116780-f67c-4bcc-bf5e-c992743ba5ac" />
     
    ```sh
-    2025-09-21T12:09:15.223-05:00  INFO 27272 --- [ArepTaller5CRUDSystem] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-    2025-09-21T12:09:15.637-05:00  INFO 27272 --- [ArepTaller5CRUDSystem] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-    2025-09-21T12:09:15.648-05:00  INFO 27272 --- [ArepTaller5CRUDSystem] [           main] e.e.a.A.ArepTaller5CrudSystemApplication : Started ArepTaller5CrudSystemApplication in 7.021 seconds (process running for 7.57)
-    2025-09-21T12:09:52.609-05:00  INFO 27272 --- [ArepTaller5CRUDSystem] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-    2025-09-21T12:09:52.610-05:00  INFO 27272 --- [ArepTaller5CRUDSystem] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-    2025-09-21T12:09:52.611-05:00  INFO 27272 --- [ArepTaller5CRUDSystem] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+    2025-10-08T12:09:15.223-05:00  INFO 27272 --- [ArepTaller6SecureApplicationDesign] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+    2025-10-08T12:09:15.637-05:00  INFO 27272 --- [ArepTaller6SecureApplicationDesign] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+    2025-10-08T12:09:15.648-05:00  INFO 27272 --- [ArepTaller6SecureApplicationDesign] [           main] e.e.a.A.ArepTaller6SecureApplicationDesign : Started ArepTaller6SecureApplicationDesign in 7.021 seconds (process running for 7.57)
+    2025-10-08T12:09:52.609-05:00  INFO 27272 --- [ArepTaller6SecureApplicationDesign] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+    2025-10-08T12:09:52.610-05:00  INFO 27272 --- [ArepTaller6SecureApplicationDesign] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+    2025-10-08T12:09:52.611-05:00  INFO 27272 --- [ArepTaller6SecureApplicationDesign] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
    ```
 
    - Página principal:
      Una vez iniciado, en el buscador ingresar: http://localhost:8080/ y lo llevará a la página inicial del proyecto:
 
-      <img width="1528" height="912" alt="image" src="https://github.com/user-attachments/assets/5bce9e45-004a-4aa9-bfc4-498aafe8e9fe" />
+     <img width="1221" height="630" alt="image" src="https://github.com/user-attachments/assets/f260100b-20a7-4586-8ea0-b34c82cb7177" />
 
    - Archivos estáticos:
      Ingresar alguno de los siguientes comandos para mirar cada archivo estático
@@ -81,6 +79,9 @@ Para el correcto uso del servidor, es necesario tener las siguientes aplicacione
        http://localhost:35000/styles.css
        http://localhost:35000/script.js
        http://localhost:35000/index.html
+       http://localhost:35000/auth.css
+       http://localhost:35000/auth.js
+       http://localhost:35000/auth.html
      ```
    - servicios Rest:
      Ingresar el siguiente comando para mirar el servicio Properties (GET):
@@ -88,32 +89,50 @@ Para el correcto uso del servidor, es necesario tener las siguientes aplicacione
        http://localhost:35000/api/properties/
        http://localhost:35000/api/priperties/{id}
      ```
+     Ingresar el siguiente comando para mirar el servicio Auth (POST):
+     ```bash
+       http://localhost:35000/api/auth/login
+       http://localhost:35000/api/auth/register
+     ```
 
 ### Servicios:
-- (GET)/api/properties/: retorna la lista de todos los properties creados.
-- (GET)/api/properties/{id}: retorna el property que se pide a partir del id.
-- (POST)/api/properties/: genera un property con todos los elementos ingresados en el body (si hay alguno vacio, se coloca un valor predeterminado.
-- (PUT)/api/properties/{id}: actualiza los campos que el usuario desee, a partir del id del property.
-- (DELETE)/api/properties/{id}: elimina un property a partir del id.
+
+#### Servicios Properties
+- (GET) /api/properties/: retorna la lista de todos los properties creados.
+- (GET) /api/properties/{id}: retorna el property que se pide a partir del id.
+- (POST) /api/properties/: genera un property con todos los elementos ingresados en el body (si hay alguno vacio, se coloca un valor predeterminado.
+- (PUT) /api/properties/{id}: actualiza los campos que el usuario desee, a partir del id del property.
+- (DELETE) /api/properties/{id}: elimina un property a partir del id.
+
+#### Servicios Auth
+- (POST) /api/auth/login: Revisa en la base de datos si existe el usuario que desee ingresar a la app, si es correcto lo lleva a "index.html", sino devuelve error.
+- (POST) /api/auth/register: Registra a un usuario con contraseña en la Base de Datos para que pueda ingresar a la aplicación.
 
 ## Arquitectura
 
-<img width="612" height="511" alt="image" src="https://github.com/user-attachments/assets/c33f069b-fbd1-4479-a734-df31f0077b0f" />
+<img width="1087" height="743" alt="image" src="https://github.com/user-attachments/assets/1caacfed-96ea-48d1-baea-74fa9bab3d5b" />
 
 La estructura del directorio del proyecto es:
 
-<img width="1011" height="555" alt="image" src="https://github.com/user-attachments/assets/4b7171ea-2680-4aa3-87cc-f471f8640718" />
+<img width="1169" height="830" alt="image" src="https://github.com/user-attachments/assets/2987056c-f95a-4abd-ad74-2d9fc985a190" />
 
-<img width="891" height="949" alt="image" src="https://github.com/user-attachments/assets/b22a135c-1a61-49eb-a7cc-863df9cfbca9" />
+<img width="1136" height="882" alt="image" src="https://github.com/user-attachments/assets/1fa3e8a5-5c87-4867-b55b-b600fa8013a6" />
 
 donde:
 
-- ArepTaller5CrudSystemApplication.java: programa de ejecución base.
+- ArepTaller6SecureApplicationDesign.java: programa de ejecución base.
+- WebConfig.java: programa de configuracion de cors.
 - PropertiesController.java: establece la URI para peticiones Rest y el CRUD base.
 - PropertiesService.java: contiene la logica del CRUD.
-- PropertiesRepository.java: Genera Peticiones a la base de datos.
+- PropertiesRepository.java: Genera Peticiones a la base de datos del properties.
 - Properties.java: Clase base con la informacion de la estructura de datos.
 - PropertiesDto.java: DTO que ayuda a estructurar los datos de entrada del RequestBody en el Controller.
+  
+- AuthController.java: establece la URI para peticiones Rest para autenticacion y registro.
+- AuthService.java: contiene la logica del inicio de sesion.
+- UserRepository.java: Genera Peticiones a la base de datos.
+- User.java: Clase base con la informacion de la estructura de datos del usuario.
+- UserDto.java: DTO que ayuda a estructurar los datos de entrada del RequestBody en el Controller.
 
 
 ## Despliegue en Docker y AWS
@@ -206,17 +225,17 @@ Luego se debe salir de la maquina virtual y voler a ingresar, para que carguen t
 ## video de desarrollo
 Video de muestra del funcionamiento completo de AWS, despliegue y peticiones:
 
-[Deployment Video](./taller05arep.mp4)
+[Deployment Video](./areptaller6.mp4)
 
 ## Reporte de pruebas
 
 ### fecha
 
-Fecha:21/09/2025
+Fecha:08/10/2025
 
 ### Pruebas unitarias:
 
-<img width="1453" height="444" alt="image" src="https://github.com/user-attachments/assets/5b832b75-08d6-4279-a4b9-7306d30b7ae9" />
+<img width="1168" height="315" alt="image" src="https://github.com/user-attachments/assets/81496299-840d-46d5-91c2-16e46b0b7cf6" />
 
 donde cada prueba unitaria sirve para:
 1. PropertiesTests: pruebas para Properties y PropertiesDto.
@@ -280,6 +299,14 @@ donde cada prueba unitaria sirve para:
 
   <img width="1123" height="495" alt="image" src="https://github.com/user-attachments/assets/358bccea-01d2-4bf1-a354-a97c88cf2243" />
 
+- servicio rest /api/auth/login (POST):
+
+  <img width="930" height="602" alt="image" src="https://github.com/user-attachments/assets/1faf14db-2d92-4abe-b456-221da3b88ae0" />
+
+- servicio rest /api/auth/register (POST):
+
+  <img width="948" height="637" alt="image" src="https://github.com/user-attachments/assets/1f134a59-99f2-49da-b643-c5ea59b3c38a" />
+
 ## Construido con
 
 [Maven](https://maven.apache.org/index.html) - Dependency Management
@@ -288,6 +315,9 @@ donde cada prueba unitaria sirve para:
 
 [Docker](https://www.docker.com/) - Containers and Images
 
+[AWS academy](https://www.awsacademy.com/vforcesite/LMS_Login) - Instances EC2
+
 ## Autor
 
 Santiago Gualdron Rincon - [Waldron63](https://github.com/Waldron63)
+
